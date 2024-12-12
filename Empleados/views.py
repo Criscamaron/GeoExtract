@@ -162,20 +162,19 @@ def actualizar_empleado(request, id):
 
 @login_required
 def eliminar_empleado(request, id):
-    # Eliminar de Supabase
-    response = supabase.table('empleados').delete().eq('id', id).execute()
-    if not response.data:
-        return HttpResponse("Error al eliminar el empleado en Supabase.", status=400)
-
-    # Eliminar de Django
     try:
-        user = User.objects.get(id=id)
-        user.delete()
-    except User.DoesNotExist:
-        return HttpResponse("Error: Usuario no encontrado en Django.", status=404)
-
+        supabase.table('asistencia').delete().eq('id_empleado', id).execute()
+        response = supabase.table('empleados').delete().eq('id', id).execute()
+        if not response.data:
+            return redirect('empleados')
+        try:
+            user = User.objects.get(id=id)
+            user.delete()
+        except User.DoesNotExist:
+            pass
+    except Exception as e:
+        pass
     return redirect('empleados')
-
 
 @login_required
 def crear_cargo(request):
