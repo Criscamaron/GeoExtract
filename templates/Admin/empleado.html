@@ -1,0 +1,47 @@
+{% extends 'Admin/administrador.html' %}
+
+{% block title %}Lista de Empleados{% endblock %}
+
+{% block contenido %}
+<div class="container mx-auto px-4 py-6">
+    <h3 class="text-2xl font-bold text-gray-800 mb-4">Lista de Empleados</h3>
+    <div class="mb-4">
+        <a href="{% url 'crear_empleado' %}" class="bg-[#f5b974] text-white py-2 px-4 rounded transition duration-300">
+            Agregar Empleado
+        </a>
+    </div>
+    <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
+        <table class="min-w-full table-auto border-collapse">
+            <thead>
+                <tr class="bg-gray-100">
+                    <th class="px-4 py-2 border-b text-left text-sm font-semibold text-gray-600">Run</th>
+                    <th class="px-4 py-2 border-b text-left text-sm font-semibold text-gray-600">Nombre</th>
+                    <th class="px-4 py-2 border-b text-left text-sm font-semibold text-gray-600">Apellido</th>
+                    <th class="px-4 py-2 border-b text-left text-sm font-semibold text-gray-600">Correo</th>
+                    <th class="px-4 py-2 border-b text-left text-sm font-semibold text-gray-600">Cargo</th>
+                    <th class="px-4 py-2 border-b text-left text-sm font-semibold text-gray-600">Departamento</th>
+                    <th class="px-4 py-2 border-b text-left text-sm font-semibold text-gray-600">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for empleado in empleados %}
+                <tr class="border-b hover:bg-gray-50">
+                    <td class="px-4 py-2 text-sm text-gray-700">{{ empleado.run }}</td>
+                    <td class="px-4 py-2 text-sm text-gray-700">{{ empleado.nombre }}</td>
+                    <td class="px-4 py-2 text-sm text-gray-700">{{ empleado.apellido }}</td>
+                    <td class="px-4 py-2 text-sm text-gray-700">{{ empleado.correo }}</td>
+                    <td class="px-4 py-2 text-sm text-gray-700">{{ empleado.cargo.nombre }}</td>
+                    <td class="px-4 py-2 text-sm text-gray-700">{{ empleado.departamento.nombre }}</td>
+                    <td class="px-4 py-2 text-sm">
+                        <a href="{% url 'actualizar_empleado' empleado.id %}" class="text-blue-500 hover:text-blue-700">Editar</a>
+                    </td>
+                    <td class="px-4 py-2 text-sm">
+                        <a href="{% url 'eliminar_empleado' empleado.id %}" class="text-red-500 hover:text-red-700">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

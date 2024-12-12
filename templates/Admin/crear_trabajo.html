@@ -1,0 +1,48 @@
+{% extends 'Admin/administrador.html' %}
+
+{% block title %}Actualizar Trabajo{% endblock %}
+
+{% block contenido %}
+<div class="container mx-auto px-4 py-8">
+    <h3 class="text-3xl font-bold text-center text-gray-800 mb-8">{{ titulo }}</h3>
+    <h4 class="text-center text-lg text-gray-600 mb-6">Edita los detalles del trabajo</h4>
+    
+    <form method="POST" class="employee-form" style="max-width: 600px; margin: 0 auto; padding: 20px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); background-color: #f9f9f9;">
+        {% csrf_token %}
+        
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="trabajo_nombre" style="font-weight: bold; margin-bottom: 5px; font-size: 1.1rem;">Nombre del Trabajo:</label>
+            <input type="text" name="nombre" id="trabajo_nombre" placeholder="Nombre del trabajo" class="form-input" required 
+                   value="{{ trabajo.nombre }}" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1.1rem; width: 100%;">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="trabajo_tipo" style="font-weight: bold; margin-bottom: 5px; font-size: 1.1rem;">Tipo de Trabajo:</label>
+            <input type="text" name="tipo" id="trabajo_tipo" placeholder="Tipo del trabajo" class="form-input" required
+                   value="{{ trabajo.tipo }}" style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1.1rem; width: 100%;">
+        </div>
+
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="trabajo_descripcion" style="font-weight: bold; margin-bottom: 5px; font-size: 1.1rem;">Descripción:</label>
+            <textarea name="descripcion" id="trabajo_descripcion" placeholder="Descripción del trabajo" class="form-input" required
+                      style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1.1rem; width: 100%;">{{ trabajo.descripcion }}</textarea>
+        </div>
+
+        <div class="form-group" style="margin-bottom: 15px;">
+            <label for="empleado_asignado" style="font-weight: bold; margin-bottom: 5px; font-size: 1.1rem;">Asignar Empleado:</label>
+            <select name="empleado_asignado" id="empleado_asignado" class="form-input"
+                    style="padding: 10px; border: 1px solid #ccc; border-radius: 5px; font-size: 1.1rem; width: 100%;">
+                {% for empleado in empleados %}
+                    <option value="{{ empleado.id }}" {% if empleado.id == trabajo.empleado_asignado %}selected{% endif %}>
+                        {{ empleado.nombre }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="submit-btn" style="background-color: #f0bc82; color: white; padding: 12px; border: none; border-radius: 5px; font-size: 1.1rem; cursor: pointer; transition: background-color 0.3s;">
+            Actualizar Trabajo
+        </button>
+    </form>
+</div>
+{% endblock %}

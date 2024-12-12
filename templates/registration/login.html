@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Iniciar Sesións - GeoExtract</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/loginstyle.css' %}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>GeoExtract</h1>
+            <h2 id="form-title">Iniciar Sesión</h2>
+        </header>
+        <main>
+            <section>
+                <form id="formulario-login-register" method="POST">
+                    {% csrf_token %}
+                    <div id="register-fields" style="display: none;">
+                        <label for="nombre">Nombre:</label>
+                        <input type="text" id="nombre" name="nombre">
+                        
+                        <label for="apellido">Apellido:</label>
+                        <input type="text" id="apellido" name="apellido">
+                    </div>
+                    <label for="username">Usuario:</label>
+                    <input type="text" id="username" name="username" required>
+                    
+                    <label for="password">Contraseña:</label>
+                    <input type="password" id="password" name="password" required>
+
+                    <button type="submit" id="submit-button">Ingresar</button>
+                </form>
+                <div class="toggle-link" id="toggle-link">¿No tienes una cuenta? Regístrate</div>
+            </section>
+
+            <div style="width: 50%; margin: auto;">
+                <canvas id="progresoGrafico"></canvas>
+            </div>
+        </main>
+    
+    </div>
+    <script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+</body>
+</html>

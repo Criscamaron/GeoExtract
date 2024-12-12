@@ -1,0 +1,33 @@
+{% extends 'Admin/administrador.html' %}
+
+{% block title %}Mensajes Pendientes{% endblock %}
+
+{% block contenido %}
+<div class="container mx-auto px-4 py-8">
+    <h3 class="text-3xl font-bold text-center text-gray-800 mb-8">Mensajes Pendientes</h3>
+
+    <table class="min-w-full border-collapse text-left table-auto mb-8">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700">Empleado</th>
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700">Mensaje</th>
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for mensaje in mensajes %}
+            <tr class="hover:bg-gray-50">
+                <!-- Mostrar el nombre del empleado en lugar del ID -->
+                <td class="py-2 px-4 border-b text-lg text-gray-700">{{ mensaje.empleado_nombre }}</td>
+                <td class="py-2 px-4 border-b text-lg text-gray-700">{{ mensaje.contenido }}</td>
+                <td class="py-2 px-4 border-b text-lg text-gray-700">
+                    <a href="{% url 'manejar_mensaje' mensaje.id 'aprobar' %}" class="text-green-500 hover:text-green-700">Aprobar</a>
+                    |
+                    <a href="{% url 'manejar_mensaje' mensaje.id 'rechazar' %}" class="text-red-500 hover:text-red-700">Rechazar</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

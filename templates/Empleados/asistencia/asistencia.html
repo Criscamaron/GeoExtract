@@ -1,0 +1,19 @@
+{% extends 'index.html' %}
+
+{% block title %}Asistencia{% endblock %}
+
+{% block contenido %}
+<div class="container mx-auto px-4 py-8">
+    <h3 class="text-3xl font-bold text-center text-gray-800 mb-8">Marcar Asistencia</h3>
+
+    <div class="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-2xl">
+        {% if asistencia %}
+            <p class="text-green-500 text-center">Ya has marcado asistencia hoy.</p>
+        {% else %}
+            <a href="{% url 'marcar_asistencia' request.user.id %}" class="w-full bg-yellow-500 text-white py-3 rounded-md text-lg font-semibold hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-300">
+                Marcar Asistencia
+            </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

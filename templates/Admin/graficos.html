@@ -1,0 +1,104 @@
+{% extends 'Admin/administrador.html' %}
+
+{% block title %}Documentación{% endblock %}
+
+{% block contenido %}
+<div class="container mx-auto px-4 py-8">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-6">Documentación</h1>
+    <p class="text-center text-gray-600 mb-8">Visualización de datos sobre productividad y asistencia del equipo.</p>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Gráfico de Productividad -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h3 class="text-xl font-semibold text-center text-gray-700 mb-4">Productividad</h3>
+            <canvas id="productividadChart" class="mx-auto"></canvas>
+        </div>
+
+        <!-- Gráfico de Asistencia -->
+        <div class="bg-white shadow-md rounded-lg p-6">
+            <h3 class="text-xl font-semibold text-center text-gray-700 mb-4">Asistencia</h3>
+            <canvas id="asistenciaChart" class="mx-auto"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+// Datos de Productividad
+const productividadData = {
+    labels: ['Completadas', 'Pendientes'],
+    datasets: [{
+        label: 'Tareas',
+        data: [{{ tareas_completadas }}, {{ tareas_pendientes }}],
+        backgroundColor: ['#34D399', '#FBBF24'], // Verde y amarillo
+        hoverOffset: 4,
+        borderWidth: 1,
+        borderColor: '#ffffff',
+    }]
+};
+
+// Configuración del gráfico de productividad
+const productividadConfig = {
+    type: 'doughnut', // Cambiado a "doughnut" para una apariencia más atractiva
+    data: productividadData,
+    options: {
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    color: '#4B5563', // Gris oscuro
+                    font: {
+                        size: 14,
+                    },
+                },
+            },
+        },
+    },
+};
+
+// Crear el gráfico de productividad
+const productividadChart = new Chart(
+    document.getElementById('productividadChart'),
+    productividadConfig
+);
+
+// Datos de Asistencia
+const asistenciaData = {
+    labels: ['Asistencia Hoy', 'Faltante'],
+    datasets: [{
+        label: 'Asistencia',
+        data: [{{ asistencia_hoy }}, {{ asistencia_faltante }}],
+        backgroundColor: ['#60A5FA', '#F87171'], // Azul y rojo
+        hoverOffset: 4,
+        borderWidth: 1,
+        borderColor: '#ffffff',
+    }]
+};
+
+// Configuración del gráfico de asistencia
+const asistenciaConfig = {
+    type: 'doughnut',
+    data: asistenciaData,
+    options: {
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: {
+                    color: '#4B5563',
+                    font: {
+                        size: 14,
+                    },
+                },
+            },
+        },
+    },
+};
+
+// Crear el gráfico de asistencia
+const asistenciaChart = new Chart(
+    document.getElementById('asistenciaChart'),
+    asistenciaConfig
+);
+</script>
+
+{% endblock %}

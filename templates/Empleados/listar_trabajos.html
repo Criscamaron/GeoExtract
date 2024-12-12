@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+
+{% block title %}Gestión de Trabajos{% endblock %}
+
+{% block contenido %}
+<div class="container mx-auto px-4 py-8">
+    <h3 class="text-3xl font-bold text-center text-gray-800 mb-8">Gestión de Trabajos</h3>
+    <h4 class="text-center text-lg text-gray-600 mb-6">Mira tus trabajos asignados</h4>
+
+    <table class="min-w-full border-collapse text-left table-auto mb-8">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700">Nombre</th>
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700">Tipo</th>
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700">Descripción</th>
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700">Completado</th>
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trabajo in trabajos %}
+            <tr class="hover:bg-gray-50">
+                <td class="py-2 px-4 border-b text-lg text-gray-700">{{ trabajo.nombre }}</td>
+                <td class="py-2 px-4 border-b text-lg text-gray-700">{{ trabajo.tipo }}</td>
+                <td class="py-2 px-4 border-b text-lg text-gray-700">{{ trabajo.descripcion }}</td>
+                <td class="py-2 px-4 border-b text-lg text-gray-700">
+                    {% if trabajo.completado %}
+                        <span class="text-green-500">Completado</span>
+                    {% else %}
+                        <span class="text-red-500">Pendiente</span>
+                    {% endif %}
+                </td>
+                <td class="py-2 px-4 border-b text-lg text-gray-700">
+                    <a href="{% url 'marcar_completado' trabajo.id %}" class="text-yellow-500 hover:text-yellow-600">
+                        {% if trabajo.completado %}
+                            Marcar como Pendiente
+                        {% else %}
+                            Marcar como Completado
+                        {% endif %}
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

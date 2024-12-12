@@ -1,0 +1,169 @@
+{% extends 'Admin/administrador.html' %} 
+{% block title %}Crear Empleado{%endblock %} {% block contenido %}
+<div class="container mx-auto px-4 py-8">
+  <h3 class="text-3xl font-bold text-center text-gray-800 mb-8">
+    Crear Nuevo Empleado
+  </h3>
+
+  <div class="max-w-lg mx-auto p-8 bg-white rounded-xl shadow-2xl">
+    <form method="POST" class="space-y-6">
+      {% csrf_token %}
+
+      <!-- RUN del Empleado -->
+      <div class="form-group">
+        <label
+          for="empleado_run"
+          class="block text-lg font-semibold text-gray-800"
+          >RUN del Empleado:</label
+        >
+        <input
+          type="text"
+          name="run"
+          id="empleado_run"
+          value="{{ empleado.run }}"
+          placeholder="RUN del empleado"
+          class="w-full p-4 border border-gray-300 rounded-md shadow-sm text-lg focus:ring-2 focus:ring-indigo-500"
+          required
+        />
+      </div>
+
+      <!-- Nombre del Empleado -->
+      <div class="form-group">
+        <label
+          for="empleado_nombre"
+          class="block text-lg font-semibold text-gray-800"
+          >Nombre del Empleado:</label
+        >
+        <input
+          type="text"
+          name="nombre"
+          id="empleado_nombre"
+          value="{{ empleado.nombre }}"
+          placeholder="Nombre del empleado"
+          class="w-full p-4 border border-gray-300 rounded-md shadow-sm text-lg focus:ring-2 focus:ring-indigo-500"
+          required
+        />
+      </div>
+
+      <!-- Apellido del Empleado -->
+      <div class="form-group">
+        <label
+          for="empleado_apellido"
+          class="block text-lg font-semibold text-gray-800"
+          >Apellido del Empleado:</label
+        >
+        <input
+          type="text"
+          name="apellido"
+          id="empleado_apellido"
+          value="{{ empleado.apellido }}"
+          placeholder="Apellido del empleado"
+          class="w-full p-4 border border-gray-300 rounded-md shadow-sm text-lg focus:ring-2 focus:ring-indigo-500"
+          required
+        />
+      </div>
+
+      <!-- Fecha de Nacimiento -->
+      <div class="form-group">
+        <label
+          for="empleado_fecha_nacimiento"
+          class="block text-lg font-semibold text-gray-800"
+          >Fecha de Nacimiento:</label
+        >
+        <input
+          type="date"
+          name="fecha_nacimiento"
+          id="empleado_fecha_nacimiento"
+          value="{{ empleado.fecha_nacimiento }}"
+          class="w-full p-4 border border-gray-300 rounded-md shadow-sm text-lg focus:ring-2 focus:ring-indigo-500"
+          required
+        />
+      </div>
+
+      <!-- Correo del empleado -->
+      <div class="form-group">
+        <label
+          for="empleado_correo"
+          class="block text-lg font-semibold text-gray-800"
+          >Correo del Empleado:</label
+        >
+        <input
+          type="email"
+          name="correo"
+          id="empleado_correo"
+          value="{{ empleado.correo }}"
+          placeholder="Correo del Empleado"
+          class="w-full p-4 border border-gray-300 rounded-md shadow-sm text-lg focus:ring-2 focus:ring-indigo-500"
+          required
+        />
+      </div>
+
+      <!-- Sueldo del Empleado -->
+      <div class="form-group">
+        <label
+          for="empleado_sueldo"
+          class="block text-lg font-semibold text-gray-800"
+          >Sueldo del Empleado:</label
+        >
+        <input
+          type="number"
+          name="sueldo"
+          id="empleado_sueldo"
+          value="{{ empleado.sueldo }}"
+          placeholder="Sueldo del empleado"
+          class="w-full p-4 border border-gray-300 rounded-md shadow-sm text-lg focus:ring-2 focus:ring-indigo-500"
+          required
+        />
+      </div>
+
+      <!-- Cargo del Empleado -->
+      <div class="form-group">
+        <label
+          for="empleado_cargo"
+          class="block text-lg font-semibold text-gray-800"
+          >Cargo del Empleado:</label
+        >
+        <select
+          name="cargo"
+          id="empleado_cargo"
+          class="w-full p-4 border border-gray-300 rounded-md shadow-sm text-lg focus:ring-2 focus:ring-indigo-500"
+        >
+          {% for cargo in cargos %}
+          <option value="{{ cargo.id }}">{{ cargo.nombre }}</option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Departamento del Empleado -->
+      <div class="form-group">
+        <label
+          for="empleado_departamento"
+          class="block text-lg font-semibold text-gray-800"
+          >Departamento del Empleado:</label
+        >
+        <select
+          name="departamento"
+          id="empleado_departamento"
+          class="w-full p-4 border border-gray-300 rounded-md shadow-sm text-lg focus:ring-2 focus:ring-indigo-500"
+        >
+          {% for departamento in departamentos %}
+          <option value="{{ departamento.id }}">
+            {{ departamento.nombre }}
+          </option>
+          {% endfor %}
+        </select>
+      </div>
+
+      <!-- Botón de Enviar -->
+      <div>
+        <button
+          type="submit"
+          class="w-full bg-yellow-500 text-white py-3 rounded-md text-lg font-semibold hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition duration-300"
+        >
+          Crear Empleado
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

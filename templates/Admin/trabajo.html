@@ -1,0 +1,54 @@
+{% extends 'Admin/administrador.html' %}
+
+{% block title %}Gestión de Trabajos{% endblock %}
+
+{% block contenido %}
+<div class="container mx-auto px-4 py-8">
+    <h3 class="text-3xl font-bold text-center text-gray-800 mb-8">Gestión de Trabajos</h3>
+    <h4 class="text-center text-lg text-gray-600 mb-6">Agrega, edita y elimina trabajos desde esta sección.</h4>
+    
+    <div class="mb-6 text-center">
+        <a href="{% url 'crear_trabajo' %}" class="bg-yellow-500 text-white py-3 px-6 rounded-md text-lg font-semibold hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500">
+            Agregar Trabajo
+        </a>
+    </div>
+
+    <table class="min-w-full border-collapse text-left table-auto mb-8">
+        <thead>
+            <tr class="bg-gray-100">
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700">Nombre</th>
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700">Tipo</th>
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700">Descripción</th>
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700">Empleado</th>
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700">Acciones</th>
+                <th class="py-2 px-4 border-b text-lg font-semibold text-gray-700"></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tbody>
+                {% if trabajos %}
+                    {% for trabajo in trabajos %}
+                    <tr class="hover:bg-gray-50">
+                        <td class="py-2 px-4 border-b text-lg text-gray-700">{{ trabajo.nombre }}</td>
+                        <td class="py-2 px-4 border-b text-lg text-gray-700">{{ trabajo.tipo }}</td>
+                        <td class="py-2 px-4 border-b text-lg text-gray-700">{{ trabajo.descripcion }}</td>
+                        <td class="py-2 px-4 border-b text-lg text-gray-700">{{ trabajo.empleado_asignado_detalle.nombre }}</td>
+                        <td class="py-2 px-4 border-b text-lg text-blue-500">
+                            <a href="{% url 'actualizar_trabajo' trabajo.id %}" class="hover:underline">Editar</a>
+                        </td>
+                        <td class="py-2 px-4 border-b text-lg text-red-500">
+                            <a href="{% url 'eliminar_trabajo' trabajo.id %}" class="hover:underline">Eliminar</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                    <tr>
+                        <td colspan="6" class="py-4 text-center text-lg text-gray-600">No hay trabajos registrados.</td>
+                    </tr>
+                {% endif %}
+            </tbody>
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
